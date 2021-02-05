@@ -9,7 +9,7 @@ export class FindUserByIdUseCase {
   async execute(data: IFindUserByIdRequestDTO): Promise<IOutputResult> {
     const { id } = data
 
-    const userFound = this.userRepository.findById(id)
+    const userFound = await this.userRepository.findById(id)
 
     if (!userFound) throw new Error(`User id ${id} not found`)
 
