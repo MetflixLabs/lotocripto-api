@@ -1,6 +1,7 @@
 import { UserFactory } from '../../../factories/UserFactory'
 import { IUser } from '../../../interfaces/IUser'
 import { UserDocument } from '../../../schemas/UserSchema'
+import { IUpdateUserRequestDTO } from '../../../useCases/User/UpdateUserUseCase/UpdateUserDTO'
 import { IUserRepository } from '../../IUserRepository'
 
 export class MongoDBUserRepository implements IUserRepository {
@@ -60,6 +61,26 @@ export class MongoDBUserRepository implements IUserRepository {
     })
 
     return foundPrice
+  }
+
+  async update(id: unknown, user: IUser): Promise<IUser | null> {
+    const userDocument = await UserDocument.findByIdAndUpdate({ _id: id }, user, {
+      new: true
+    })
+
+    if (!userDocument) return null
+
+    const updatedUser = UserFactory({
+      id: userDocument._id,
+      walletAddress: userDocument.walletAddress,
+      name: userDocument.name,
+      password: userDocument.password,
+      email: userDocument.email,
+      createdAt: userDocument.createdAt,
+      updatedAt: userDocument.updatedAt
+    })
+
+    return updatedUser
   }
 
   async getCollectionLength(): Promise<number> {
