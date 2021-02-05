@@ -9,10 +9,11 @@ export class MongoDBUserRepository implements IUserRepository {
 
     const createdPrice = UserFactory({
       id: userDocument._id,
-      createdAt: userDocument.createdAt,
       name: userDocument.name,
       email: userDocument.name,
       password: userDocument.password,
+      walletAddress: userDocument.walletAddress,
+      createdAt: userDocument.createdAt,
       updatedAt: userDocument.updatedAt
     })
 
@@ -32,7 +33,9 @@ export class MongoDBUserRepository implements IUserRepository {
         name: userDocument.name,
         email: userDocument.email,
         password: userDocument.password,
-        createdAt: userDocument.createdAt ? userDocument.createdAt : undefined
+        walletAddress: userDocument.walletAddress,
+        createdAt: userDocument.createdAt,
+        updatedAt: userDocument.updatedAt
       })
 
       return userFound
@@ -51,7 +54,9 @@ export class MongoDBUserRepository implements IUserRepository {
       name: userDocument.name,
       email: userDocument.email,
       password: userDocument.password,
-      createdAt: userDocument.createdAt ? userDocument.createdAt : undefined
+      walletAddress: userDocument.walletAddress,
+      createdAt: userDocument.createdAt,
+      updatedAt: userDocument.updatedAt
     })
 
     return foundPrice

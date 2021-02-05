@@ -8,12 +8,13 @@ export class CreateUserUseCase {
   constructor(private userRepository: IUserRepository) {}
 
   async execute(data: ICreateUserRequestDTO): Promise<IOutputResult> {
-    const { name, email, password } = data
+    const { name, email, password, walletAddress } = data
 
     const newUser = UserFactory({
       name,
       email,
-      password
+      password,
+      walletAddress
     })
 
     const createdPrice = this.userRepository.create(newUser)
