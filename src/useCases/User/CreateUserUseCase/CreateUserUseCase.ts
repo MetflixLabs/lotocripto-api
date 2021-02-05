@@ -13,8 +13,10 @@ export class CreateUserUseCase {
     const nameAlreadyRegistered = await this.userRepository.findByName(name)
     const mailAlreadyRegistered = await this.userRepository.findByEmail(email)
 
+    // validations
     if (nameAlreadyRegistered) throw new Error(`A user with name ${name} is already registered.`)
     if (mailAlreadyRegistered) throw new Error(`A user with email ${email} is already registered.`)
+    if (name.length > 8) throw new Error(`Username must be 4-8 characteres.`)
 
     const newUser = UserFactory({
       name,
