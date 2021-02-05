@@ -1,7 +1,6 @@
 import { UserFactory } from '../../../factories/UserFactory'
 import { IUser } from '../../../interfaces/IUser'
 import { UserDocument } from '../../../schemas/UserSchema'
-import { IUpdateUserRequestDTO } from '../../../useCases/User/UpdateUserUseCase/UpdateUserDTO'
 import { IUserRepository } from '../../IUserRepository'
 
 export class MongoDBUserRepository implements IUserRepository {
@@ -21,10 +20,10 @@ export class MongoDBUserRepository implements IUserRepository {
     return createdPrice
   }
 
-  async findByName(name: string, page: number, limit: number): Promise<IUser[] | null> {
+  async listAll(page: number, limit: number): Promise<IUser[] | null> {
     const skip = (page - 1) * limit
 
-    const userDocumentList = await UserDocument.find({ name }).skip(skip).limit(limit)
+    const userDocumentList = await UserDocument.find({}).skip(skip).limit(limit)
 
     if (userDocumentList.length === 0) return null
 
@@ -43,6 +42,24 @@ export class MongoDBUserRepository implements IUserRepository {
     })
 
     return userList
+  }
+
+  async findByName(name: string): Promise<IUser | null> {
+    const userDocument = await UserDocument.findOne({ name })
+
+    if (!userDocument) return null
+
+    const userFound = UserFactory({
+      id: userDocument.id,
+      name: userDocument.name,
+      email: userDocument.email,
+      password: userDocument.password,
+      walletAddress: userDocument.walletAddress,
+      createdAt: userDocument.createdAt,
+      updatedAt: userDocument.updatedAt
+    })
+
+    return userFound
   }
 
   async findById(id: unknown): Promise<IUser | null> {
@@ -81,6 +98,24 @@ export class MongoDBUserRepository implements IUserRepository {
     })
 
     return updatedUser
+  }
+
+  async findByEmail(email: string): Promise<IUser | null> {
+    const userDocument = await UserDocument.findOne({ email })
+
+    if (!userDocument) return null
+
+    const userFound = UserFactory({
+      id: userDocument._id,
+      name: userDocument.name,
+      email: userDocument.email,
+      password: userDocument.password,
+      walletAddress: userDocument.walletAddress,
+      createdAt: userDocument.createdAt,
+      updatedAt: userDocument.updatedAt
+    })
+
+    return userFound
   }
 
   async getCollectionLength(): Promise<number> {
