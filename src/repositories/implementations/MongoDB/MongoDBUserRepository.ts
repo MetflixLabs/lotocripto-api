@@ -100,6 +100,20 @@ export class MongoDBUserRepository implements IUserRepository {
     return updatedUser
   }
 
+  async delete(id: unknown): Promise<unknown> {
+    const waitForResponse = (): Promise<unknown> => {
+      return new Promise((resolve, reject) => {
+        UserDocument.findByIdAndDelete(id, (err, outputNotification) => {
+          if (err) return reject(err)
+
+          return resolve(outputNotification)
+        })
+      })
+    }
+
+    return await waitForResponse()
+  }
+
   async findByEmail(email: string): Promise<IUser | null> {
     const userDocument = await UserDocument.findOne({ email })
 
