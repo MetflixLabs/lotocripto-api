@@ -1,6 +1,8 @@
 import { model, Schema, Model, Document } from 'mongoose'
 import { IUser } from '../interfaces/IUser'
 
+// export type IUserSchema = Document & IUser
+
 const UserSchema: Schema = new Schema(
   {
     name: { type: String, required: true },

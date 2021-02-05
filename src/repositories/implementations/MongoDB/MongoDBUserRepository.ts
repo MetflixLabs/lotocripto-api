@@ -1,6 +1,6 @@
 import { UserFactory } from '../../../factories/UserFactory'
 import { IUser } from '../../../interfaces/IUser'
-import { UserDocument } from '../../../schemas/User'
+import { UserDocument } from '../../../schemas/UserSchema'
 import { IUserRepository } from '../../IUserRepository'
 
 export class MongoDBUserRepository implements IUserRepository {
@@ -26,8 +26,8 @@ export class MongoDBUserRepository implements IUserRepository {
 
     if (userDocumentList.length === 0) return null
 
-    const priceList = userDocumentList.map((userDocument: IUser) => {
-      const foundPrice = UserFactory({
+    const userList = userDocumentList.map((userDocument: IUser) => {
+      const userFound = UserFactory({
         id: userDocument.id,
         name: userDocument.name,
         email: userDocument.email,
@@ -35,10 +35,26 @@ export class MongoDBUserRepository implements IUserRepository {
         createdAt: userDocument.createdAt ? userDocument.createdAt : undefined
       })
 
-      return foundPrice
+      return userFound
     })
 
-    return priceList
+    return userList
+  }
+
+  async findById(id: unknown): Promise<IUser | null> {
+    const userDocument = await UserDocument.findById({ _id: id })
+
+    if (!userDocument?._id) return null
+
+    const foundPrice = UserFactory({
+      id: userDocument.id,
+      name: userDocument.name,
+      email: userDocument.email,
+      password: userDocument.password,
+      createdAt: userDocument.createdAt ? userDocument.createdAt : undefined
+    })
+
+    return foundPrice
   }
 
   async getCollectionLength(): Promise<number> {
