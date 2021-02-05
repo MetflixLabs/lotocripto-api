@@ -2,10 +2,10 @@ import { MongoDBUserRepository } from '../../../repositories/implementations/Mon
 import { CreateUserController } from './CreateUserController'
 import { CreateUserUseCase } from './CreateUserUseCase'
 
-const mongoDBPricesRepository = new MongoDBUserRepository()
+const mondoDBUserRepository = new MongoDBUserRepository()
 
-const createPriceUseCase = new CreateUserUseCase(mongoDBPricesRepository)
+const createUserUseCase = new CreateUserUseCase(mondoDBUserRepository)
 
-const createPriceController = new CreateUserController(createPriceUseCase)
+const createUserController = new CreateUserController(createUserUseCase)
 
-export { createPriceController }
+export { createUserController }

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { createPriceController } from './useCases/User/CreateUserUseCase'
+import { createUserController } from './useCases/User/CreateUserUseCase'
 const router = Router()
 
 /**
@@ -15,7 +15,7 @@ const router = Router()
  *
  */
 router.post('/users', (request, response) => {
-  return createPriceController.handle(request, response)
+  return createUserController.handle(request, response)
 })
 
 export { router }
