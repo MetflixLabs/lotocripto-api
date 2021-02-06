@@ -7,7 +7,7 @@ export class MongoDBUserRepository implements IUserRepository {
   async create(user: IUser): Promise<IUser> {
     const userDocument = await UserDocument.create(user)
 
-    const createdPrice = UserFactory({
+    const createdUser = UserFactory({
       id: userDocument._id,
       name: userDocument.name,
       email: userDocument.name,
@@ -17,7 +17,7 @@ export class MongoDBUserRepository implements IUserRepository {
       updatedAt: userDocument.updatedAt
     })
 
-    return createdPrice
+    return createdUser
   }
 
   async listAll(page: number, limit: number): Promise<IUser[] | null> {
@@ -67,7 +67,7 @@ export class MongoDBUserRepository implements IUserRepository {
 
     if (!userDocument?._id) return null
 
-    const foundPrice = UserFactory({
+    const userFound = UserFactory({
       id: userDocument.id,
       name: userDocument.name,
       email: userDocument.email,
@@ -77,7 +77,7 @@ export class MongoDBUserRepository implements IUserRepository {
       updatedAt: userDocument.updatedAt
     })
 
-    return foundPrice
+    return userFound
   }
 
   async update(id: unknown, user: IUser): Promise<IUser | null> {

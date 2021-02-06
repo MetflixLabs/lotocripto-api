@@ -1,4 +1,4 @@
-export interface IParticipant {
+export interface ICreateParticipantRequestDTO {
   id?: any
   userId: number
   socketId: string

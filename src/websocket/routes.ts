@@ -1,6 +1,6 @@
 import { Timestamp } from 'bson'
 import { io } from '../app'
-import { uptimeHandler } from '../eventHandlers/uptimeHandler'
+import { uptimeHandler } from './eventHandlers/uptimeHandler'
 
 const userUptime = new Promise((resolve, reject) => {
   io.on('connection', socket => {
