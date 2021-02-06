@@ -8,5 +8,5 @@ export interface IUserRepository {
   findById(id: unknown): Promise<IUser | null>
   findByName(name: string): Promise<IUser | null>
   findByEmail(email: string): Promise<IUser | null>
-  // getCollectionLength(): Promise<number>
+  getCollectionLength(): Promise<number>
 }

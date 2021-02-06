@@ -18,10 +18,6 @@ const app = express()
 const server = http.createServer(app)
 const io = new socketio({ path: '/socketio' }).listen(server)
 
-io.on('connect', socket => {
-  socket.emit('message', `o pai ta on`)
-})
-
 app.use(cors())
 app.use(helmet())
 app.use(express.json())

@@ -2,7 +2,8 @@ import { Router } from 'express'
 import { createUserController } from './useCases/User/CreateUserUseCase'
 import { deleteUserController } from './useCases/User/DeleteUserUseCase'
 import { findUserByIdController } from './useCases/User/FindUserByIdUseCase'
-import { updateUserController } from './useCases/User/UpdateUserUseCase/'
+import { listUserController } from './useCases/User/ListUserUseCase'
+import { updateUserController } from './useCases/User/UpdateUserUseCase'
 const router = Router()
 
 /**
@@ -22,7 +23,9 @@ router.post('/users', (request, response) => {
 })
 
 router.get('/users', (request, response) => {
-  return findUserByIdController.handle(request, response)
+  if (request.body.id) return findUserByIdController.handle(request, response)
+
+  return listUserController.handle(request, response)
 })
 
 router.put('/users', (request, response) => {
