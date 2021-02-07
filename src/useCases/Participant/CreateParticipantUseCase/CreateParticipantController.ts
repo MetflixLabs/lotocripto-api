@@ -23,7 +23,7 @@ export class CreateParticipantController {
         }
       })
 
-      return response.status(500).json(outputResult)
+      return response.status(401).json(outputResult)
     }
   }
 }
