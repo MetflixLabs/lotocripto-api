@@ -1,9 +1,4 @@
 export interface ICreateParticipantRequestDTO {
-  id?: any
-  userId: number
+  userId: string
   socketId: string
-  startDate: number
-  elegible: boolean
-  createdAt?: Date
-  updatedAt?: Date
 }

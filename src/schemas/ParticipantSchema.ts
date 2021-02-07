@@ -5,9 +5,8 @@ const ParticipantSchema: Schema = new Schema(
   {
     userId: { type: String, required: true },
     socketId: { type: String, required: true },
-    password: { type: String, required: true },
     startDate: { type: String, required: true },
-    elegible: { type: Boolean, required: true },
+    elegible: { type: Boolean },
     createdAt: { type: Date, default: Date.now(), required: true }
   },
   { timestamps: true }
