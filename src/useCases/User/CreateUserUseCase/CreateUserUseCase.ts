@@ -27,6 +27,8 @@ export class CreateUserUseCase {
 
     const createdUser = await this.userRepository.create(newUser)
 
+    if (!createdUser.id) throw new Error('Erro ao criar usuário.')
+
     const outputResult = OutputResultFactory({
       notification: {
         success: true,
