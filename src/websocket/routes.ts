@@ -1,4 +1,3 @@
-import { Timestamp } from 'bson'
 import { io } from '../app'
 import { uptimeHandler } from './eventHandlers/uptimeHandler'
 
@@ -11,8 +10,7 @@ const userUptime = new Promise((resolve, reject) => {
 
     socket.on('disconnect', () => {
       const endTime = +new Date().toUTCString()
-      const connectedTime = uptimeHandler({ startTime, endTime })
-      console.log()
+      const uptimeInMinutes = uptimeHandler({ startTime, endTime })
     })
   })
 })
