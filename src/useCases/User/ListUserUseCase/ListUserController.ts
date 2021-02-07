@@ -4,7 +4,7 @@ import { ListUserUseCase } from './ListUserUseCase'
 export class ListUserController {
   constructor(private listUserUseCase: ListUserUseCase) {}
 
-  async handle(request: Request, response: Response): Promise<unknown> {
+  async handle(request: Request, response: Response): Promise<Response> {
     try {
       const page = request.body.page || 1
       const limit = request.body.limit || 10

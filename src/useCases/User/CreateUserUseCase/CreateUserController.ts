@@ -5,7 +5,7 @@ import { CreateUserUseCase } from './CreateUserUseCase'
 export class CreateUserController {
   constructor(private createUserUseCase: CreateUserUseCase) {}
 
-  async handle(request: Request, response: Response): Promise<unknown> {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { name, email, password, walletAddress } = request.body
     try {
       const outputResult = await this.createUserUseCase.execute({

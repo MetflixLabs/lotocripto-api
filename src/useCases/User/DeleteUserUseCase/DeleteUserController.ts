@@ -5,7 +5,7 @@ import DeleteUserUseCase from './DeleteUserUseCase'
 export default class DeleteUserController {
   constructor(private deleteUserUseCase: DeleteUserUseCase) {}
 
-  async handle(request: Request, response: Response): Promise<unknown> {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { id } = request.body
 
     try {

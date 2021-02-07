@@ -4,7 +4,7 @@ import { UpdateUserUseCase } from './UpdateUserUseCase'
 export default class UpdateUserController {
   constructor(private updateUserUseCase: UpdateUserUseCase) {}
 
-  async handle(request: Request, response: Response): Promise<unknown> {
+  async handle(request: Request, response: Response): Promise<Response> {
     const requestUser = request.body
 
     try {

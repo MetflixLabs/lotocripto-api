@@ -5,7 +5,7 @@ import { FindUserByIdUseCase } from './FindUserByIdUseCase'
 export class FindUserByIdController {
   constructor(private findUserByIdUseCase: FindUserByIdUseCase) {}
 
-  async handle(request: Request, response: Response): Promise<unknown> {
+  async handle(request: Request, response: Response): Promise<Response> {
     const id = request.body.id
 
     try {
