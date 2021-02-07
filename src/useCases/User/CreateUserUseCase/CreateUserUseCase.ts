@@ -14,9 +14,9 @@ export class CreateUserUseCase {
     const mailAlreadyRegistered = await this.userRepository.findByEmail(email)
 
     // validations
-    if (nameAlreadyRegistered) throw new Error(`A user with name ${name} is already registered.`)
-    if (mailAlreadyRegistered) throw new Error(`A user with email ${email} is already registered.`)
-    if (name.length > 8) throw new Error(`Username must be 4-8 characteres.`)
+    if (nameAlreadyRegistered) throw new Error(`O nome ${name} já está em uso.`)
+    if (mailAlreadyRegistered) throw new Error(`O email ${email} já está em uso.`)
+    if (name.length > 8) throw new Error(`O nome de usuário deve ter entre 4-8 caracteres.`)
 
     const newUser = UserFactory({
       name,
@@ -30,7 +30,7 @@ export class CreateUserUseCase {
     const outputResult = OutputResultFactory({
       notification: {
         success: true,
-        message: `A user with id ${createdUser.id} was created`
+        message: `Sua conta foi criada com sucesso! Você pode entrar agora.`
       }
     })
 

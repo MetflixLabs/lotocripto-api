@@ -11,12 +11,11 @@ export class FindUserByIdUseCase {
 
     const userFound = await this.userRepository.findById(id)
 
-    if (!userFound) throw new Error(`User id ${id} not found`)
+    if (!userFound) throw new Error(`Usuário id ${id} não encontrado.`)
 
     const outputResult = OutputResultFactory({
       notification: {
-        success: true,
-        message: `User id ${id} was found`
+        success: true
       },
       data: userFound
     })

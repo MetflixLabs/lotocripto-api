@@ -11,12 +11,12 @@ export default class DeleteUserUseCase {
 
     const wasDeleted = await this.userRepository.delete(id)
 
-    if (!wasDeleted) throw new Error(`User id ${id} not found.`)
+    if (!wasDeleted) throw new Error(`Usuário id ${id} não foi encontrado.`)
 
     const outputResult = OutputResultFactory({
       notification: {
         success: true,
-        message: `User id ${id} was deleted.`
+        message: `Usuário id ${id} foi excluído com sucesso.`
       }
     })
 

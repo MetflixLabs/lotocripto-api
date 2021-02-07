@@ -11,12 +11,12 @@ export class UpdateUserUseCase {
 
     const updatedUser = await this.userRepository.update(id, userRequest)
 
-    if (!updatedUser) throw new Error(`User id ${id} not found.`)
+    if (!updatedUser) throw new Error(`Usuário id ${id} não encontrado.`)
 
     const outputResult = OutputResultFactory({
       notification: {
         success: true,
-        message: `User id ${id} updated successfully.`
+        message: `Dados de usuário atualizados com sucesso.`
       }
     })
 
