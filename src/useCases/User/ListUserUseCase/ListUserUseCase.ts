@@ -1,13 +1,15 @@
 import { OutputResultFactory } from '../../../factories/OutputResultFactory'
 import { IOutputResult } from '../../../interfaces/IOutputResult'
 import { IUserRepository } from '../../../repositories/IUserRepository'
+import { pageAndLimitHandler } from '../../../utils/pageAndLimitHandler'
 import { IListUserRequestDTO } from './ListUserDTO'
 
 export class ListUserUseCase {
   constructor(private userRepository: IUserRepository) {}
 
   async execute(data: IListUserRequestDTO): Promise<IOutputResult> {
-    const { page, limit } = data
+    const pageAndLimit = pageAndLimitHandler(data.page, data.limit)
+    const { page, limit } = pageAndLimit
 
     const userCollectionLength = await this.userRepository.getCollectionLength()
 

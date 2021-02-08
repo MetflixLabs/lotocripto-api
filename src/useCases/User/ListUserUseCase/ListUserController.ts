@@ -6,10 +6,10 @@ export class ListUserController {
 
   async handle(request: Request, response: Response): Promise<Response> {
     try {
-      const page = request.body.page || 1
-      const limit = request.body.limit || 10
+      const page = request.body.page
+      const limit = request.body.limit
 
-      const outputResult = await this.listUserUseCase.execute({ page: +page, limit: +limit })
+      const outputResult = await this.listUserUseCase.execute({ page, limit })
 
       return response.status(200).json(outputResult)
     } catch (error) {
