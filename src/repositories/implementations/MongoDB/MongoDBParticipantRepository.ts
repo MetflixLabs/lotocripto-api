@@ -130,6 +130,6 @@ export class MongoDBParticipantRepository implements IParticipantRepository {
   async deleteAll() {}
 
   async getCollectionLength(): Promise<number> {
-    return await UserDocument.estimatedDocumentCount()
+    return await ParticipantDocument.estimatedDocumentCount()
   }
 }
