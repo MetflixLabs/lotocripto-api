@@ -1,4 +1,9 @@
-import { IPagination } from './IPagination'
+interface IPagination {
+  currentPage?: number
+  totalPages?: number
+  limit?: number
+  totalRecords: number
+}
 
 interface IOutputNotification {
   success: boolean

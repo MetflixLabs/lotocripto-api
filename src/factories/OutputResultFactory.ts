@@ -1,22 +1,18 @@
 import { IOutputResult } from '../interfaces/IOutputResult'
-import { IPagination } from '../interfaces/IPagination'
+import { pageAndLimitHandler } from '../utils/pageAndLimitHandler'
 
-interface IOutputResultFactory {
-  notification: {
-    success: boolean
-    message?: string
-  }
-  pagination?: Omit<IPagination, 'totalPages'>
-  data?: unknown
-}
+export const OutputResultFactory = (data: IOutputResult): IOutputResult => {
+  const pageAndLimit = pageAndLimitHandler(data.pagination?.currentPage, data.pagination?.limit)
+  const { page, limit } = pageAndLimit
 
-export const OutputResultFactory = (data: IOutputResultFactory): IOutputResult => {
   if (data.pagination) {
     return {
       ...data,
       pagination: {
         ...data.pagination,
-        totalPages: Math.ceil(data.pagination.totalRecords / data.pagination.limit)
+        limit: limit,
+        currentPage: page,
+        totalPages: Math.ceil(data.pagination.totalRecords / limit)
       }
     }
   } else if (data.data) {
