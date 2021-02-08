@@ -1,15 +1,15 @@
 import { Request, Response } from 'express'
 import { OutputResultFactory } from '../../../factories/OutputResultFactory'
-import { UpdateUserUseCase } from './UpdateUserUseCase'
+import { UpdateParticipantUseCase } from './UpdateParticipantUseCase'
 
-export default class UpdateUserController {
-  constructor(private updateUserUseCase: UpdateUserUseCase) {}
+export class UpdatePariticipantController {
+  constructor(private updateParticipantUseCase: UpdateParticipantUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const requestUser = request.body
+    const requestParticipant = request.body
 
     try {
-      const outputResult = await this.updateUserUseCase.execute(requestUser)
+      const outputResult = await this.updateParticipantUseCase.execute(requestParticipant)
 
       return response.status(200).json(outputResult)
     } catch (error) {

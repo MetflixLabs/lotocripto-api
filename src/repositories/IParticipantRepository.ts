@@ -2,7 +2,7 @@ import { IParticipant } from '../interfaces/IParticipant'
 
 export interface IParticipantRepository {
   create(price: IParticipant): Promise<IParticipant>
-  update(id: unknown, user: IParticipant): Promise<IParticipant | null>
+  update(id: unknown, participant: IParticipant): Promise<IParticipant | null>
   delete(id: unknown): Promise<unknown>
   listAll(page: number, limit: number): Promise<IParticipant[] | null>
   findById(id: unknown): Promise<IParticipant | null>

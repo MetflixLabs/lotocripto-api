@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { createParticipantController } from './useCases/Participant/CreateParticipantUseCase'
 import { listParticipantController } from './useCases/Participant/ListParticipantUseCase'
+import { updatePariticipantController } from './useCases/Participant/UpdateParticipantUseCase'
 import { createUserController } from './useCases/User/CreateUserUseCase'
 import { deleteUserController } from './useCases/User/DeleteUserUseCase'
 import { findUserByIdController } from './useCases/User/FindUserByIdUseCase'
@@ -26,6 +27,10 @@ router.post('/participants', (request, response) =>
 
 router.get('/participants', (request, response) =>
   listParticipantController.handle(request, response)
+)
+
+router.put('/participants', (request, response) =>
+  updatePariticipantController.handle(request, response)
 )
 
 export { router }
