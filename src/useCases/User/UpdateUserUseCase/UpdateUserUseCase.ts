@@ -9,9 +9,9 @@ export class UpdateUserUseCase {
   async execute(data: IUpdateUserRequestDTO): Promise<IOutputResult> {
     const { id, ...userRequest } = data
 
-    const updatedUser = await this.userRepository.update(id, userRequest)
+    const wasUpdated = await this.userRepository.update(id, userRequest)
 
-    if (!updatedUser) throw new Error(`Usuário id ${id} não encontrado.`)
+    if (!wasUpdated) throw new Error(`Usuário id ${id} não encontrado.`)
 
     const outputResult = OutputResultFactory({
       notification: {

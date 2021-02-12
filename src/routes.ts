@@ -5,6 +5,7 @@ import { updatePariticipantController } from './useCases/Participant/UpdateParti
 import { createUserController } from './useCases/User/CreateUserUseCase'
 import { deleteUserController } from './useCases/User/DeleteUserUseCase'
 import { findUserByIdController } from './useCases/User/FindUserByIdUseCase'
+import { findUserByNameController } from './useCases/User/FindUserByNameUseCase'
 import { listUserController } from './useCases/User/ListUserUseCase'
 import { updateUserController } from './useCases/User/UpdateUserUseCase'
 const router = Router()
@@ -12,6 +13,7 @@ const router = Router()
 // users
 router.get('/users', (request, response) => {
   if (request.body.id) return findUserByIdController.handle(request, response)
+  else if (request.body.name) return findUserByNameController.handle(request, response)
 
   return listUserController.handle(request, response)
 })

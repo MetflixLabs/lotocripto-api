@@ -3,6 +3,7 @@ import { UserFactory } from '../../../factories/UserFactory'
 import { IOutputResult } from '../../../interfaces/IOutputResult'
 import { IUserRepository } from '../../../repositories/IUserRepository'
 import { ICreateUserRequestDTO } from './CreateUserDTO'
+import { bcryptHandler } from '../../../utils/bcryptHandler'
 
 export class CreateUserUseCase {
   constructor(private userRepository: IUserRepository) {}
@@ -18,16 +19,18 @@ export class CreateUserUseCase {
     if (mailAlreadyRegistered) throw new Error(`O email ${email} já está em uso.`)
     if (name.length > 8) throw new Error(`O nome de usuário deve ter entre 4-8 caracteres.`)
 
+    const encryptedPassword = await bcryptHandler.encrypt(password)
+
     const newUser = UserFactory({
       name,
       email,
-      password,
+      password: encryptedPassword,
       walletAddress
     })
 
-    const createdUser = await this.userRepository.create(newUser)
+    const wasCreated = await this.userRepository.create(newUser)
 
-    if (!createdUser.id) throw new Error('Erro ao criar usuário.')
+    if (!wasCreated) throw new Error('Erro ao criar usuário.')
 
     const outputResult = OutputResultFactory({
       notification: {
