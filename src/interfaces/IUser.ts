@@ -3,7 +3,7 @@ export interface IUser {
   name: string
   email: string
   walletAddress: string
-  password: string
+  password?: string
   createdAt?: Date
   updatedAt?: Date
 }

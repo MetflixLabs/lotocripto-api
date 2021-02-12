@@ -4,20 +4,10 @@ import { UserDocument } from '../../../schemas/UserSchema'
 import { IUserRepository } from '../../IUserRepository'
 
 export class MongoDBUserRepository implements IUserRepository {
-  async create(user: IUser): Promise<IUser> {
+  async create(user: IUser): Promise<boolean> {
     const userDocument = await UserDocument.create(user)
 
-    const createdUser = UserFactory({
-      id: userDocument._id,
-      name: userDocument.name,
-      email: userDocument.name,
-      password: userDocument.password,
-      walletAddress: userDocument.walletAddress,
-      createdAt: userDocument.createdAt,
-      updatedAt: userDocument.updatedAt
-    })
-
-    return createdUser
+    return userDocument._id !== null
   }
 
   async listAll(page: number, limit: number): Promise<IUser[] | null> {
@@ -27,12 +17,11 @@ export class MongoDBUserRepository implements IUserRepository {
 
     if (userDocumentList.length === 0) return null
 
-    const userList = userDocumentList.map((userDocument: IUser) => {
+    const userList = userDocumentList.map((userDocument: Omit<IUser, 'password'>) => {
       const userFound = UserFactory({
         id: userDocument.id,
         name: userDocument.name,
         email: userDocument.email,
-        password: userDocument.password,
         walletAddress: userDocument.walletAddress,
         createdAt: userDocument.createdAt,
         updatedAt: userDocument.updatedAt
@@ -71,7 +60,6 @@ export class MongoDBUserRepository implements IUserRepository {
       id: userDocument.id,
       name: userDocument.name,
       email: userDocument.email,
-      password: userDocument.password,
       walletAddress: userDocument.walletAddress,
       createdAt: userDocument.createdAt,
       updatedAt: userDocument.updatedAt
@@ -80,27 +68,13 @@ export class MongoDBUserRepository implements IUserRepository {
     return userFound
   }
 
-  async update(id: unknown, user: IUser): Promise<IUser | null> {
-    const userDocument = await UserDocument.findByIdAndUpdate({ _id: id }, user, {
-      new: true
-    })
+  async update(id: unknown, user: IUser): Promise<boolean> {
+    const userDocument = await UserDocument.findByIdAndUpdate({ _id: id }, user)
 
-    if (!userDocument) return null
-
-    const updatedUser = UserFactory({
-      id: userDocument._id,
-      walletAddress: userDocument.walletAddress,
-      name: userDocument.name,
-      password: userDocument.password,
-      email: userDocument.email,
-      createdAt: userDocument.createdAt,
-      updatedAt: userDocument.updatedAt
-    })
-
-    return updatedUser
+    return userDocument !== null
   }
 
-  async delete(id: unknown): Promise<unknown> {
+  async delete(id: unknown): Promise<boolean> {
     const waitForResponse = (): Promise<unknown> => {
       return new Promise((resolve, reject) => {
         UserDocument.findByIdAndDelete(id, (err, outputNotification) => {
@@ -111,7 +85,9 @@ export class MongoDBUserRepository implements IUserRepository {
       })
     }
 
-    return await waitForResponse()
+    const wasDeleted = await waitForResponse()
+
+    return wasDeleted !== null
   }
 
   async findByEmail(email: string): Promise<IUser | null> {
@@ -123,7 +99,6 @@ export class MongoDBUserRepository implements IUserRepository {
       id: userDocument._id,
       name: userDocument.name,
       email: userDocument.email,
-      password: userDocument.password,
       walletAddress: userDocument.walletAddress,
       createdAt: userDocument.createdAt,
       updatedAt: userDocument.updatedAt
