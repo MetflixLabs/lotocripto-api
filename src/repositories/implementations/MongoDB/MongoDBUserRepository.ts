@@ -17,7 +17,7 @@ export class MongoDBUserRepository implements IUserRepository {
 
     if (userDocumentList.length === 0) return null
 
-    const userList = userDocumentList.map((userDocument: Omit<IUser, 'password'>) => {
+    const userList = userDocumentList.map((userDocument: IUser) => {
       const userFound = UserFactory({
         id: userDocument.id,
         name: userDocument.name,
