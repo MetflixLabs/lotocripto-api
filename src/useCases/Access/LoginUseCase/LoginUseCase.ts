@@ -21,11 +21,11 @@ export default class LoginUseCase {
 
     if (!isPasswordCorrect) throw new Error(`Senha inválida.`)
 
-    if (!process.env.SECRET) throw new Error(`Secret não encontrado nas variáveis de ambiente.`)
+    if (!process.env.SECRET) throw new Error(`Secret não especificado nas variáveis de ambiente.`)
 
     const SECRET = process.env.SECRET
 
-    const token = jwt.sign({ id }, SECRET, {})
+    const token = jwt.sign({ userId: id }, SECRET, {})
 
     const outputResult = OutputResultFactory({
       notification: {

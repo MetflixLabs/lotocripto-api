@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import aaa from './middlewares/auth'
 import { loginController } from './useCases/Access/LoginUseCase'
 import { createParticipantController } from './useCases/Participant/CreateParticipantUseCase'
 import { listParticipantController } from './useCases/Participant/ListParticipantUseCase'
@@ -10,6 +11,12 @@ import { findUserByNameController } from './useCases/User/FindUserByNameUseCase'
 import { listUserController } from './useCases/User/ListUserUseCase'
 import { updateUserController } from './useCases/User/UpdateUserUseCase'
 const router = Router()
+
+// Login
+router.post('/login', (request, response) => loginController.handle(request, response))
+
+// Auth
+router.use(aaa)
 
 // users
 router.get('/users', (request, response) => {
@@ -24,19 +31,14 @@ router.put('/users', (request, response) => updateUserController.handle(request,
 router.delete('/users', (request, response) => deleteUserController.handle(request, response))
 
 // participants
-router.post('/participants', (request, response) =>
-  createParticipantController.handle(request, response)
-)
-
 router.get('/participants', (request, response) =>
   listParticipantController.handle(request, response)
 )
-
+router.post('/participants', (request, response) =>
+  createParticipantController.handle(request, response)
+)
 router.put('/participants', (request, response) =>
   updatePariticipantController.handle(request, response)
 )
-
-// Login
-router.post('/login', (request, response) => loginController.handle(request, response))
 
 export { router }
