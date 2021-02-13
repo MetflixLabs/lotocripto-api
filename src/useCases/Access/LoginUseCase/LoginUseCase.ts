@@ -1,15 +1,13 @@
 import 'dotenv/config'
-import { IOutputResult } from '../../../interfaces/IOutputResult'
 import { IUserRepository } from '../../../repositories/IUserRepository'
 import { ILoginRequestDTO } from './LoginDTO'
 import { bcryptHandler } from '../../../utils/bcryptHandler'
 import jwt from 'jsonwebtoken'
-import { OutputResultFactory } from '../../../factories/OutputResultFactory'
 
 export default class LoginUseCase {
   constructor(private userRepository: IUserRepository) {}
 
-  async execute(data: ILoginRequestDTO): Promise<IOutputResult> {
+  async execute(data: ILoginRequestDTO): Promise<string> {
     const { name, password: plainPassword } = data
 
     const userFound = await this.userRepository.findByName(name)
@@ -27,16 +25,6 @@ export default class LoginUseCase {
 
     const token = jwt.sign({ userId: id }, SECRET, {})
 
-    const outputResult = OutputResultFactory({
-      notification: {
-        success: true,
-        message: `Login realizado com sucesso.`
-      },
-      data: {
-        token
-      }
-    })
-
-    return outputResult
+    return token
   }
 }
