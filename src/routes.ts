@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { loginController } from './useCases/Access/LoginUseCase'
 import { createParticipantController } from './useCases/Participant/CreateParticipantUseCase'
 import { listParticipantController } from './useCases/Participant/ListParticipantUseCase'
 import { updatePariticipantController } from './useCases/Participant/UpdateParticipantUseCase'
@@ -34,5 +35,8 @@ router.get('/participants', (request, response) =>
 router.put('/participants', (request, response) =>
   updatePariticipantController.handle(request, response)
 )
+
+// Login
+router.post('/login', (request, response) => loginController.handle(request, response))
 
 export { router }
