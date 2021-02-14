@@ -8,9 +8,9 @@ export class LogoutController {
   async handle(request: Request, response: Response): Promise<unknown> {
     try {
       const outputResult = await this.logoutUseCase.execute()
-      const ENVIRONMENT = process.env.ENVIRONMENT
+      const ENVIRONMENT = process.env.NODE_ENV
 
-      if (ENVIRONMENT === 'dev') {
+      if (ENVIRONMENT === 'development') {
         response.cookie('token', '', { expires: new Date(Date.now()) })
       } else {
         response.cookie('token', '', { sameSite: 'none', secure: true })
