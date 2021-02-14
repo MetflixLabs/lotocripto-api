@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { jwtAuth } from './middlewares/jwtAuth'
 import cookieParser from 'cookie-parser'
 import { loginController } from './useCases/Access/LoginUseCase'
+import { logoutController } from './useCases/Access/LogoutUseCase'
 import { createParticipantController } from './useCases/Participant/CreateParticipantUseCase'
 import { listParticipantController } from './useCases/Participant/ListParticipantUseCase'
 import { updatePariticipantController } from './useCases/Participant/UpdateParticipantUseCase'
@@ -18,6 +19,9 @@ const router = Router()
 
 // Login
 router.post('/login', (request, response, next) => loginController.handle(request, response, next))
+
+// Logout
+router.get('/logout', (request, response) => logoutController.handle(request, response))
 
 router.use(cookieParser())
 
