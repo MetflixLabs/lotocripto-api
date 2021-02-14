@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "node --exec ts-node --transpile-only src/server.ts",
     "dev": "nodemon --exec ts-node --transpile-only src/server.ts"
   },
   "dependencies": {
