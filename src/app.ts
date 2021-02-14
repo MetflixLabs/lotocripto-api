@@ -18,7 +18,7 @@ const server = http.createServer(app)
 
 app.use(
   cors({
-    origin: ['https://lotocripto.com.br', 'http://localhost:8000'],
+    origin: ['https://lotocripto.com.br', 'http://localhost:8000', 'http://localhost:4000'],
     exposedHeaders: ['Set-Cookie'],
     credentials: true
   })
