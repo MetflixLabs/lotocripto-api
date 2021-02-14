@@ -27,7 +27,7 @@ router.get('/users', jwtAuth, (request, response) => {
   return listUserController.handle(request, response)
 })
 
-router.post('/users', jwtAuth, (request, response) =>
+router.post('/users', (request, response) =>
   createUserController.handle(request, response)
 )
 router.put('/users', jwtAuth, (request, response) => updateUserController.handle(request, response))
