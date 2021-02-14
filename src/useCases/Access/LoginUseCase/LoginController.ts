@@ -10,8 +10,13 @@ export class LoginController {
 
     try {
       const token = await this.loginUseCase.execute({ name, password })
+      const ENVIRONMENT = process.env.ENVIRONMENT
 
-      response.cookie('token', token)
+      if (ENVIRONMENT === 'dev') {
+        response.cookie('token', token)
+      } else {
+        response.cookie('token', token, { sameSite: 'none', secure: true })
+      }
 
       const outputResult = OutputResultFactory({
         notification: {
