@@ -1,6 +1,6 @@
 import { MongoDBUserRepository } from '../../../repositories/implementations/MongoDB/MongoDBUserRepository'
 import { LoginController } from './LoginController'
-import LoginUseCase from './LoginUseCase'
+import { LoginUseCase } from './LoginUseCase'
 
 const mongoDBUserRepository = new MongoDBUserRepository()
 const loginUseCase = new LoginUseCase(mongoDBUserRepository)

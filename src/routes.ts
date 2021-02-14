@@ -11,6 +11,7 @@ import { findUserByIdController } from './useCases/User/FindUserByIdUseCase'
 import { findUserByNameController } from './useCases/User/FindUserByNameUseCase'
 import { listUserController } from './useCases/User/ListUserUseCase'
 import { updateUserController } from './useCases/User/UpdateUserUseCase'
+import { userStateController } from './useCases/User/UserStateUseCase'
 
 const router = Router()
 
@@ -27,9 +28,11 @@ router.get('/users', jwtAuth, (request, response) => {
   return listUserController.handle(request, response)
 })
 
-router.post('/users', (request, response) =>
-  createUserController.handle(request, response)
+router.get('/userState', jwtAuth, (request, response) =>
+  userStateController.handle(request, response)
 )
+
+router.post('/users', (request, response) => createUserController.handle(request, response))
 router.put('/users', jwtAuth, (request, response) => updateUserController.handle(request, response))
 router.delete('/users', (request, response) => deleteUserController.handle(request, response))
 
