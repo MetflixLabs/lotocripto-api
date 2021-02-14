@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { OutputResultFactory } from '../../../factories/OutputResultFactory'
-import LoginUseCase from './LoginUseCase'
+import { LoginUseCase } from './LoginUseCase'
 
 export class LoginController {
   constructor(private loginUseCase: LoginUseCase) {}
