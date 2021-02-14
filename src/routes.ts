@@ -12,6 +12,7 @@ import { findUserByNameController } from './useCases/User/FindUserByNameUseCase'
 import { listUserController } from './useCases/User/ListUserUseCase'
 import { updateUserController } from './useCases/User/UpdateUserUseCase'
 import { userStateController } from './useCases/User/UserStateUseCase'
+import { deleteParticipantController } from './useCases/Participant/DeleteParticipantUseCase'
 
 const router = Router()
 
@@ -45,6 +46,9 @@ router.post('/participants', jwtAuth, (request, response) =>
 )
 router.put('/participants', jwtAuth, (request, response) =>
   updatePariticipantController.handle(request, response)
+)
+router.delete('/participants', jwtAuth, (request, response) =>
+  deleteParticipantController.handle(request, response)
 )
 
 export { router }
