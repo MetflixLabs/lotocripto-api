@@ -13,7 +13,7 @@ export function verifyJWT(request: Request, response: Response, next: NextFuncti
     if (!token) throw new Error('Nenhum token válido.')
 
     jwt.verify(token, SECRET, (err, decoded: IAuth) => {
-      if (err || !decoded) throw new Error('Token inválidp.')
+      if (err || !decoded) throw new Error('Token inválido.')
 
       // se tudo estiver ok, salva no request para uso posterior
       request.userId = decoded.userId

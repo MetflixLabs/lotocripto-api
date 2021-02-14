@@ -18,7 +18,13 @@ const app = express()
 const server = http.createServer(app)
 const io = new socketio({ path: '/socketio' }).listen(server)
 
-app.use(cors())
+app.use(
+  cors({
+    origin: ["https://lotocripto.com.br", "http://localhost:8000"],
+    exposedHeaders: ['Set-Cookie'],
+    credentials: true
+  })
+)
 app.use(helmet())
 app.use(express.json())
 app.use('/api', router)
