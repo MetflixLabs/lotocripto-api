@@ -8,6 +8,7 @@
     "dev": "nodemon --exec ts-node --transpile-only src/server.ts"
   },
   "dependencies": {
+    "@types/cors": "^2.8.10",
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
