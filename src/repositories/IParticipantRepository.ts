@@ -3,7 +3,7 @@ import { IParticipant } from '../interfaces/IParticipant'
 export interface IParticipantRepository {
   create(price: IParticipant): Promise<IParticipant>
   update(id: unknown, participant: IParticipant): Promise<IParticipant | null>
-  delete(id: unknown): Promise<unknown>
+  deleteBySocketId(socketId: string): Promise<boolean>
   listAll(page: number, limit: number): Promise<IParticipant[] | null>
   findById(id: unknown): Promise<IParticipant | null>
   findBySocketId(name: string): Promise<IParticipant | null>

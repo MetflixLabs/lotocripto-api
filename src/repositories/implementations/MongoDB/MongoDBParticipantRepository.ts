@@ -43,10 +43,10 @@ export class MongoDBParticipantRepository implements IParticipantRepository {
     return participantFound
   }
 
-  async delete(id: unknown): Promise<unknown> {
+  async deleteBySocketId(socketId: string): Promise<boolean> {
     const waitForResponse = (): Promise<unknown> => {
       return new Promise((resolve, reject) => {
-        ParticipantDocument.findByIdAndDelete(id, (err, outputNotification) => {
+        ParticipantDocument.findByIdAndDelete(socketId, (err, outputNotification) => {
           if (err) return reject(err)
 
           return resolve(outputNotification)
@@ -54,7 +54,9 @@ export class MongoDBParticipantRepository implements IParticipantRepository {
       })
     }
 
-    return await waitForResponse()
+    const wasDeleted = await waitForResponse()
+
+    return wasDeleted !== null
   }
 
   async listAll(page: number, limit: number): Promise<IParticipant[] | null> {
