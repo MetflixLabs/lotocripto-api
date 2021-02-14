@@ -1,7 +1,6 @@
 import express from 'express'
 import { router } from './routes'
 import mongoose from 'mongoose'
-import { Server as socketio } from 'socket.io'
 import http from 'http'
 import cors from 'cors'
 import helmet from 'helmet'
@@ -16,11 +15,10 @@ mongoose.connect(
 
 const app = express()
 const server = http.createServer(app)
-const io = new socketio({ path: '/socketio' }).listen(server)
 
 app.use(
   cors({
-    origin: ["https://lotocripto.com.br", "http://localhost:8000"],
+    origin: ['https://lotocripto.com.br', 'http://localhost:8000'],
     exposedHeaders: ['Set-Cookie'],
     credentials: true
   })
@@ -29,4 +27,4 @@ app.use(helmet())
 app.use(express.json())
 app.use('/api', router)
 
-export { io, server }
+export { server }

@@ -17,9 +17,7 @@
     "moment": "^2.29.1",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.8",
-    "prettier": "^2.1.2",
-    "socket.io": "^3.1.1",
-    "socket.io-client": "^3.1.1"
+    "prettier": "^2.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -34,7 +32,6 @@
     "@types/moment": "^2.13.0",
     "@types/mongoose": "^5.10.3",
     "@types/node": "^14.14.6",
-    "@types/socket.io": "^2.1.13",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
     "eslint": "^7.12.1",
