@@ -4,7 +4,7 @@ import { ILoginRequestDTO } from './LoginDTO'
 import { bcryptHandler } from '../../../utils/bcryptHandler'
 import jwt from 'jsonwebtoken'
 
-export default class LoginUseCase {
+export class LoginUseCase {
   constructor(private userRepository: IUserRepository) {}
 
   async execute(data: ILoginRequestDTO): Promise<string> {
