@@ -23,7 +23,7 @@ export class DeleteParticipantUseCase {
     const outputResult = OutputResultFactory({
       notification: {
         success: true,
-        message: `Participante id ${socketId} excluído com sucesso.`
+        message: `Participante excluído com sucesso.`
       }
     })
 
