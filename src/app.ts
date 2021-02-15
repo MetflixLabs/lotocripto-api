@@ -20,8 +20,6 @@ app.use(
   cors({
     origin: [
       'https://lotocripto.com.br',
-      'http://localhost:8000',
-      'http://localhost:4000',
       'https://server.lotocripto.com.br'
     ],
     exposedHeaders: ['Set-Cookie'],
