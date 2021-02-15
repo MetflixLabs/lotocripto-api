@@ -18,7 +18,7 @@ export class DeleteParticipantUseCase {
       throw new Error('Informe o id do usuário ou o id do socket conectado.')
     }
 
-    if (!wasDeleted) throw new Error(`Participante id ${socketId} não foi encontrado.`)
+    if (!wasDeleted) throw new Error(`Participante não encontrado.`)
 
     const outputResult = OutputResultFactory({
       notification: {
