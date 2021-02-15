@@ -59,6 +59,22 @@ export class MongoDBParticipantRepository implements IParticipantRepository {
     return wasDeleted !== null
   }
 
+  async deleteByUserId(userId: string): Promise<boolean> {
+    const waitForResponse = (): Promise<unknown> => {
+      return new Promise((resolve, reject) => {
+        ParticipantDocument.findByIdAndDelete(userId, (err, outputNotification) => {
+          if (err) return reject(err)
+
+          return resolve(outputNotification)
+        })
+      })
+    }
+
+    const wasDeleted = await waitForResponse()
+
+    return wasDeleted !== null
+  }
+
   async listAll(page: number, limit: number): Promise<IParticipant[] | null> {
     const skip = (page - 1) * limit
 

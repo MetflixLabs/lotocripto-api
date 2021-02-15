@@ -6,10 +6,10 @@ export class DeleteParticipantController {
   constructor(private deleteParticipantUseCase: DeleteParticipantUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { socketId } = request.body
+    const { socketId, userId } = request.body
 
     try {
-      const outputResult = await this.deleteParticipantUseCase.execute({ socketId })
+      const outputResult = await this.deleteParticipantUseCase.execute({ socketId, userId })
 
       return response.status(200).json(outputResult)
     } catch (error) {

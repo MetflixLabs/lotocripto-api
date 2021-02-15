@@ -1,3 +1,4 @@
 export interface IDeleteParticipantRequestDTO {
-  socketId: string
+  socketId?: string
+  userId?: string
 }

@@ -7,9 +7,16 @@ export class DeleteParticipantUseCase {
   constructor(private participantRepository: IParticipantRepository) {}
 
   async execute(data: IDeleteParticipantRequestDTO): Promise<IOutputResult> {
-    const { socketId } = data
+    const { socketId, userId } = data
 
-    const wasDeleted = await this.participantRepository.deleteBySocketId(socketId)
+    let wasDeleted
+    if (userId) {
+      wasDeleted = await this.participantRepository.deleteByUserId(userId)
+    } else if (socketId) {
+      wasDeleted = await this.participantRepository.deleteBySocketId(socketId)
+    } else {
+      throw new Error('Informe o id do usuário ou o id do socket conectado.')
+    }
 
     if (!wasDeleted) throw new Error(`Participante id ${socketId} não foi encontrado.`)
 
