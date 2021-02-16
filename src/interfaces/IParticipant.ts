@@ -2,8 +2,7 @@ export interface IParticipant {
   id?: any
   userId: string
   socketId: string
-  startDate: number
-  elegible?: boolean
+  startedAt: number
   createdAt?: Date
   updatedAt?: Date
 }

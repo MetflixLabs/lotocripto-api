@@ -1,7 +1,6 @@
 import { ParticipantFactory } from '../../../factories/ParticipantFactory'
 import { IParticipant } from '../../../interfaces/IParticipant'
 import { ParticipantDocument } from '../../../schemas/ParticipantSchema'
-import { UserDocument } from '../../../schemas/UserSchema'
 import { IParticipantRepository } from '../../IParticipantRepository'
 
 export class MongoDBParticipantRepository implements IParticipantRepository {
@@ -12,8 +11,7 @@ export class MongoDBParticipantRepository implements IParticipantRepository {
       id: participantDocument._id,
       userId: participantDocument.userId,
       socketId: participantDocument.socketId,
-      startDate: participantDocument.startDate,
-      elegible: participantDocument.elegible
+      startedAt: participantDocument.startedAt
     })
 
     return createdParticipant
@@ -34,8 +32,7 @@ export class MongoDBParticipantRepository implements IParticipantRepository {
       id: participantDocument._id,
       userId: participantDocument.userId,
       socketId: participantDocument.socketId,
-      startDate: participantDocument.startDate,
-      elegible: participantDocument.elegible,
+      startedAt: participantDocument.startedAt,
       createdAt: participantDocument.createdAt,
       updatedAt: participantDocument.updatedAt
     })
@@ -87,8 +84,7 @@ export class MongoDBParticipantRepository implements IParticipantRepository {
         id: participantDocument._id,
         userId: participantDocument.userId,
         socketId: participantDocument.socketId,
-        startDate: participantDocument.startDate,
-        elegible: participantDocument.elegible
+        startedAt: participantDocument.startedAt
       })
 
       return participantFound
@@ -106,8 +102,7 @@ export class MongoDBParticipantRepository implements IParticipantRepository {
       id: participantDocument._id,
       userId: participantDocument.userId,
       socketId: participantDocument.socketId,
-      startDate: participantDocument.startDate,
-      elegible: participantDocument.elegible
+      startedAt: participantDocument.startedAt
     })
 
     return participantFound
@@ -122,8 +117,7 @@ export class MongoDBParticipantRepository implements IParticipantRepository {
       id: participantDocument._id,
       userId: participantDocument.userId,
       socketId: participantDocument.socketId,
-      startDate: participantDocument.startDate,
-      elegible: participantDocument.elegible
+      startedAt: participantDocument.startedAt
     })
 
     return participantFound
@@ -138,8 +132,7 @@ export class MongoDBParticipantRepository implements IParticipantRepository {
       id: participantDocument._id,
       userId: participantDocument.userId,
       socketId: participantDocument.socketId,
-      startDate: participantDocument.startDate,
-      elegible: participantDocument.elegible
+      startedAt: participantDocument.startedAt
     })
 
     return participantFound
