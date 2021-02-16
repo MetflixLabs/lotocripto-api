@@ -14,6 +14,7 @@ import { listUserController } from './useCases/User/ListUserUseCase'
 import { updateUserController } from './useCases/User/UpdateUserUseCase'
 import { userStateController } from './useCases/User/UserStateUseCase'
 import { deleteParticipantController } from './useCases/Participant/DeleteParticipantUseCase'
+import { findParticipantByUptimeController } from './useCases/Participant/FindParticipantByUptimeUseCase'
 
 const router = Router()
 
@@ -42,9 +43,11 @@ router.put('/users', jwtAuth, (request, response) => updateUserController.handle
 router.delete('/users', (request, response) => deleteUserController.handle(request, response))
 
 // participants
-router.get('/participants', jwtAuth, (request, response) =>
-  listParticipantController.handle(request, response)
-)
+router.get('/participants', jwtAuth, (request, response) => {
+  if (request.body.uptime) return findParticipantByUptimeController.handle(request, response)
+  return listParticipantController.handle(request, response)
+})
+
 router.post('/participants', jwtAuth, (request, response) =>
   createParticipantController.handle(request, response)
 )

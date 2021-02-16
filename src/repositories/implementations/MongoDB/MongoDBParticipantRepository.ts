@@ -1,3 +1,4 @@
+import { NOTIMP } from 'dns'
 import { ParticipantFactory } from '../../../factories/ParticipantFactory'
 import { IParticipant } from '../../../interfaces/IParticipant'
 import { ParticipantDocument } from '../../../schemas/ParticipantSchema'
@@ -138,7 +139,30 @@ export class MongoDBParticipantRepository implements IParticipantRepository {
     return participantFound
   }
 
-  async deleteAll() {}
+  async deleteAll() {
+    throw NOTIMP
+  }
+
+  async findByUptime(minDate: Date): Promise<IParticipant[] | null> {
+    const participantDocument = await ParticipantDocument.find({
+      startedAt: { $lte: minDate }
+    })
+
+    if (participantDocument.length === 0) return null
+
+    const participantList = participantDocument.map(participantDocument => {
+      const participant = ParticipantFactory({
+        id: participantDocument._id,
+        userId: participantDocument.userId,
+        socketId: participantDocument.socketId,
+        startedAt: participantDocument.startedAt
+      })
+
+      return participant
+    })
+
+    return participantList
+  }
 
   async getCollectionLength(): Promise<number> {
     return await ParticipantDocument.estimatedDocumentCount()
