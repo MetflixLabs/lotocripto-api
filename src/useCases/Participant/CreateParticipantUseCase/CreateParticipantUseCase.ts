@@ -20,7 +20,7 @@ export class CreateParticipantUseCase {
     const newParticipant = ParticipantFactory({
       socketId,
       userId,
-      startDate: Date.now()
+      startedAt: new Date()
     })
 
     const createdParticipant = await this.pariticipantRepository.create(newParticipant)
