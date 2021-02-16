@@ -2,7 +2,7 @@ export interface IParticipant {
   id?: any
   userId: string
   socketId: string
-  startedAt: number
+  startedAt: Date
   createdAt?: Date
   updatedAt?: Date
 }
