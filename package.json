@@ -41,8 +41,21 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "husky": "1.1.2",
+    "lint-staged": "^10.5.4",
     "nodemon": "^2.0.4",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/!(*test).js": [
+      "prettier --single-quote --trailing-comma es5 --write",
+      "eslint --fix"
+    ]
   }
 }
