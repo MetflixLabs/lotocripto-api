@@ -1,11 +1,15 @@
 import { OutputResultFactory } from '../../../factories/OutputResultFactory'
 import { IOutputResult } from '../../../interfaces/IOutputResult'
 import { IParticipantRepository } from '../../../repositories/IParticipantRepository'
+import { IUserRepository } from '../../../repositories/IUserRepository'
 import { uptimeHandler } from '../../../utils/uptimeHandler'
 import { IFindParticipantByUptimeRequestDTO } from './FindParticipantByUptimeDTO'
 
 export class FindParticipantByUptimeUseCase {
-  constructor(private participantRepository: IParticipantRepository) {}
+  constructor(
+    private participantRepository: IParticipantRepository,
+    private userRepository: IUserRepository
+  ) {}
 
   async execute(data: IFindParticipantByUptimeRequestDTO): Promise<IOutputResult> {
     const { uptime } = data
@@ -19,11 +23,13 @@ export class FindParticipantByUptimeUseCase {
     const random = Math.floor(Math.random() * participantList.length)
     const randomParticipant = participantList[random]
 
+    const user = await this.userRepository.findById(randomParticipant.userId)
+
     const outputResult = OutputResultFactory({
       notification: {
         success: true
       },
-      data: randomParticipant
+      data: user
     })
 
     return outputResult
