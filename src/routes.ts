@@ -43,10 +43,9 @@ router.put('/users', jwtAuth, (request, response) => updateUserController.handle
 router.delete('/users', (request, response) => deleteUserController.handle(request, response))
 
 // participants
-router.get('/participants', jwtAuth, (request, response) => {
-  if (request.query.uptime) return findParticipantByUptimeController.handle(request, response)
-  return listParticipantController.handle(request, response)
-})
+router.get('/participants', jwtAuth, (request, response) =>
+  listParticipantController.handle(request, response)
+)
 
 router.post('/participants', jwtAuth, (request, response) =>
   createParticipantController.handle(request, response)
@@ -56,6 +55,10 @@ router.put('/participants', jwtAuth, (request, response) =>
 )
 router.delete('/participants', jwtAuth, (request, response) =>
   deleteParticipantController.handle(request, response)
+)
+
+router.get('/winner', jwtAuth, (request, response) =>
+  findParticipantByUptimeController.handle(request, response)
 )
 
 export { router }

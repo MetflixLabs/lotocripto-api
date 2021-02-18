@@ -1,3 +1,3 @@
 export interface IFindParticipantByUptimeRequestDTO {
-  uptime: number
+  uptime: string
 }

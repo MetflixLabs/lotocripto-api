@@ -6,7 +6,9 @@ export class FindParticipantByUptimeController {
   constructor(private findParticipantByUptimeUseCase: FindParticipantByUptimeUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { uptime } = request.body
+    const uptime = request.query.uptime?.toString()
+
+    if (!uptime) throw new Error('Nenhum uptime foi informado.')
 
     try {
       const outputResult = await this.findParticipantByUptimeUseCase.execute({ uptime })
