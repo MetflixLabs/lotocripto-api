@@ -44,7 +44,7 @@ router.delete('/users', (request, response) => deleteUserController.handle(reque
 
 // participants
 router.get('/participants', jwtAuth, (request, response) => {
-  if (request.body.uptime) return findParticipantByUptimeController.handle(request, response)
+  if (request.query.uptime) return findParticipantByUptimeController.handle(request, response)
   return listParticipantController.handle(request, response)
 })
 
