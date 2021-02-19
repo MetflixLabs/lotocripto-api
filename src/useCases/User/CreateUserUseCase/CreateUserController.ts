@@ -6,13 +6,14 @@ export class CreateUserController {
   constructor(private createUserUseCase: CreateUserUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { name, email, password, walletAddress } = request.body
+    const { name, email, password, walletAddress, captcha } = request.body
     try {
       const outputResult = await this.createUserUseCase.execute({
         name,
         email,
         password,
-        walletAddress
+        walletAddress,
+        captcha,
       })
 
       return response.status(201).json(outputResult)
@@ -20,8 +21,8 @@ export class CreateUserController {
       const outputResult = OutputResultFactory({
         notification: {
           success: false,
-          message: error.message
-        }
+          message: error.message,
+        },
       })
 
       return response.status(500).json(outputResult)

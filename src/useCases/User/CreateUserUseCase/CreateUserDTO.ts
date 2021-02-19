@@ -3,4 +3,5 @@ export interface ICreateUserRequestDTO {
   email: string
   password: string
   walletAddress: string
+  captcha: string
 }
