@@ -21,8 +21,8 @@ export class LoginController {
       const outputResult = OutputResultFactory({
         notification: {
           success: true,
-          message: 'Login realizado com sucesso'
-        }
+          message: 'Bem-vindo de volta!',
+        },
       })
 
       return response.status(200).json(outputResult)
@@ -30,8 +30,8 @@ export class LoginController {
       const outputResult = OutputResultFactory({
         notification: {
           success: false,
-          message: error.message || 'Erro inesperado'
-        }
+          message: error.message || 'Erro inesperado',
+        },
       })
 
       return response.status(400).json(outputResult)
