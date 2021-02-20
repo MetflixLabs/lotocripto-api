@@ -15,6 +15,8 @@ import { updateUserController } from './useCases/User/UpdateUserUseCase'
 import { userStateController } from './useCases/User/UserStateUseCase'
 import { deleteParticipantController } from './useCases/Participant/DeleteParticipantUseCase'
 import { findParticipantByUptimeController } from './useCases/Participant/FindParticipantByUptimeUseCase'
+import { createWinnerController } from './useCases/Winner/CreateWinnerUseCase'
+import { listWinnerController } from './useCases/Winner/ListWinnerUseCase'
 
 const router = Router()
 
@@ -57,8 +59,11 @@ router.delete('/participants', jwtAuth, (request, response) =>
   deleteParticipantController.handle(request, response)
 )
 
-router.get('/winner', jwtAuth, (request, response) =>
+router.get('/elegible', jwtAuth, (request, response) =>
   findParticipantByUptimeController.handle(request, response)
 )
+
+router.get('/winners', (request, response) => listWinnerController.handle(request, response))
+router.post('/winners', (request, response) => createWinnerController.handle(request, response))
 
 export { router }
