@@ -4,34 +4,17 @@ import { IOutputResult } from '../../../interfaces/IOutputResult'
 import { IUserRepository } from '../../../repositories/IUserRepository'
 import { ICreateUserRequestDTO } from './CreateUserDTO'
 import { bcryptHandler } from '../../../utils/bcryptHandler'
-import { Timestamp } from 'mongodb'
-import axios from 'axios'
+import { validateCaptcha } from '../../../utils/validateCaptcha'
 
 export class CreateUserUseCase {
   constructor(private userRepository: IUserRepository) {}
-
-  async validateCaptcha(captcha: string): Promise<boolean> {
-    return axios
-      .post(
-        `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.CAPTCHA_KEY}&response=${captcha}`
-      )
-      .then(res => {
-        const { success } = res.data
-        return success
-      })
-      .catch(err => {
-        console.log(`[CATCH on captcha]: ${err}`)
-
-        return false
-      })
-  }
 
   async execute(data: ICreateUserRequestDTO): Promise<IOutputResult> {
     const { name, email, password, walletAddress, captcha } = data
 
     const nameAlreadyRegistered = await this.userRepository.findByName(name)
     const mailAlreadyRegistered = await this.userRepository.findByEmail(email)
-    const isCaptchaValid = await this.validateCaptcha(captcha)
+    const isCaptchaValid = await validateCaptcha(captcha)
 
     // validations
     if (nameAlreadyRegistered) throw new Error(`O nome ${name} já está em uso.`)
