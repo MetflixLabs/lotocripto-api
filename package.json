@@ -55,7 +55,7 @@
   },
   "lint-staged": {
     "src/**/!(*test).ts": [
-      "prettier --single-quote --trailing-comma es5 --write",
+      "prettier --write",
       "eslint --fix"
     ]
   }
