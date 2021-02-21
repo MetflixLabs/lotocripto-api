@@ -6,13 +6,13 @@ export class GetParticipantLengthUseCase {
   constructor(private participantRepository: IParticipantRepository) {}
 
   async execute(): Promise<IOutputResult> {
-    const length = this.participantRepository.getCollectionLength()
+    const length = await this.participantRepository.getCollectionLength()
 
     const outputResult = OutputResultFactory({
       notification: {
-        success: true,
+        success: true
       },
-      data: length,
+      data: length
     })
 
     return outputResult
