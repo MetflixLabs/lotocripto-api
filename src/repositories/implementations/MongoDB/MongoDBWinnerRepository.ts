@@ -13,17 +13,17 @@ export class MongoDBWinnerRepository implements IWinnerRepository {
   async listAll(page: number, limit: number): Promise<IWinner[] | null> {
     const skip = (page - 1) * limit
 
-    const winnerDocument = await WinnerDocument.find({}).skip(skip).limit(limit)
+    const winnerDocument = await WinnerDocument.find({}).sort({ createdAt: 'desc' }).lean().exec()
 
     if (winnerDocument.length === 0) return null
 
-    const winnerList = winnerDocument.map(winnerDocument => {
+    const winnerList = winnerDocument.map((winnerDocument: any) => {
       const winnerFound = WinnerFactory({
         id: winnerDocument.id,
         userId: winnerDocument.userId,
         transactionId: winnerDocument.transactionId,
         amount: winnerDocument.amount,
-        createdAt: winnerDocument.createdAt,
+        createdAt: winnerDocument.createdAt
       })
 
       return winnerFound
@@ -42,7 +42,7 @@ export class MongoDBWinnerRepository implements IWinnerRepository {
         userId: winnerDocument.userId,
         amount: winnerDocument.amount,
         transactionId: winnerDocument.transactionId,
-        createdAt: winnerDocument.createdAt,
+        createdAt: winnerDocument.createdAt
       })
 
       return winner
@@ -61,7 +61,7 @@ export class MongoDBWinnerRepository implements IWinnerRepository {
       userId: winnerDocument.userId,
       transactionId: winnerDocument.transactionId,
       amount: winnerDocument.amount,
-      createdAt: winnerDocument.createdAt,
+      createdAt: winnerDocument.createdAt
     })
 
     return winnerFound
@@ -99,7 +99,7 @@ export class MongoDBWinnerRepository implements IWinnerRepository {
       userId: winnerDocument.userId,
       transactionId: winnerDocument.transactionId,
       amount: winnerDocument.amount,
-      createdAt: winnerDocument.createdAt,
+      createdAt: winnerDocument.createdAt
     })
 
     return winnerFound
