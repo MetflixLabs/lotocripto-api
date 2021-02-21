@@ -18,6 +18,7 @@ import { findParticipantByUptimeController } from './useCases/Participant/FindPa
 import { createWinnerController } from './useCases/Winner/CreateWinnerUseCase'
 import { listWinnerController } from './useCases/Winner/ListWinnerUseCase'
 import { getParticipantLengthController } from './useCases/Participant/GetParticipantLength'
+import { botAuth } from './middlewares/botAuth'
 
 const router = Router()
 
@@ -43,32 +44,38 @@ router.get('/userState', jwtAuth, (request, response) =>
 
 router.post('/users', (request, response) => createUserController.handle(request, response))
 router.put('/users', jwtAuth, (request, response) => updateUserController.handle(request, response))
-router.delete('/users', (request, response) => deleteUserController.handle(request, response))
+router.delete('/users', jwtAuth, (request, response) =>
+  deleteUserController.handle(request, response)
+)
 
 // participants
-router.get('/participants/length', (request, response) =>
+router.get('/participants/length', botAuth, (request, response) =>
   getParticipantLengthController.handle(request, response)
 )
 
-router.get('/participants', jwtAuth, (request, response) =>
+router.get('/participants', botAuth, (request, response) =>
   listParticipantController.handle(request, response)
 )
 
-router.post('/participants', jwtAuth, (request, response) =>
+router.post('/participants', botAuth, (request, response) =>
   createParticipantController.handle(request, response)
 )
-router.put('/participants', jwtAuth, (request, response) =>
+router.put('/participants', botAuth, (request, response) =>
   updatePariticipantController.handle(request, response)
 )
-router.delete('/participants', jwtAuth, (request, response) =>
+router.delete('/participants', botAuth, (request, response) =>
   deleteParticipantController.handle(request, response)
 )
 
-router.get('/elegible', jwtAuth, (request, response) =>
+// random elegible participant
+router.get('/elegible', botAuth, (request, response) =>
   findParticipantByUptimeController.handle(request, response)
 )
 
+// winners
 router.get('/winners', (request, response) => listWinnerController.handle(request, response))
-router.post('/winners', (request, response) => createWinnerController.handle(request, response))
+router.post('/winners', botAuth, (request, response) =>
+  createWinnerController.handle(request, response)
+)
 
 export { router }
