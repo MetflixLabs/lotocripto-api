@@ -9,4 +9,5 @@ export interface IUserRepository {
   findByName(name: string): Promise<IUser | null>
   findByEmail(email: string): Promise<IUser | null>
   getCollectionLength(): Promise<number>
+  findByWallet(walletAddress: string): Promise<IUser | null>
 }

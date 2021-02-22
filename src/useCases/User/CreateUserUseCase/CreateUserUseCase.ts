@@ -14,11 +14,13 @@ export class CreateUserUseCase {
 
     const nameAlreadyRegistered = await this.userRepository.findByName(name)
     const mailAlreadyRegistered = await this.userRepository.findByEmail(email)
+    const walletAlreadyRegistered = await this.userRepository.findByWallet(walletAddress)
     const isCaptchaValid = await validateCaptcha(captcha)
 
     // validations
     if (nameAlreadyRegistered) throw new Error(`O nome ${name} já está em uso.`)
     if (mailAlreadyRegistered) throw new Error(`O email ${email} já está em uso.`)
+    if (walletAlreadyRegistered) throw new Error(`A carteira ${walletAddress} já está em uso.`)
     if (name.length > 8) throw new Error(`O nome de usuário deve ter entre 4-8 caracteres.`)
     if (!isCaptchaValid) throw new Error(`Falha ao verificar o reCAPTCHA. Tente novamente.`)
 
@@ -28,7 +30,7 @@ export class CreateUserUseCase {
       name,
       email,
       password: encryptedPassword,
-      walletAddress,
+      walletAddress
     })
 
     const wasCreated = await this.userRepository.create(newUser)
@@ -38,8 +40,8 @@ export class CreateUserUseCase {
     const outputResult = OutputResultFactory({
       notification: {
         success: true,
-        message: `Sua conta foi criada com sucesso! Você pode entrar agora.`,
-      },
+        message: `Sua conta foi criada com sucesso! Você pode entrar agora.`
+      }
     })
 
     return outputResult

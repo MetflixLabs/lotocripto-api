@@ -107,6 +107,24 @@ export class MongoDBUserRepository implements IUserRepository {
     return userFound
   }
 
+  async findByWallet(walletAddress: string): Promise<IUser | null> {
+    const userDocument = await UserDocument.findOne({ walletAddress })
+
+    if (!userDocument) return null
+
+    const userFound = UserFactory({
+      id: userDocument.id,
+      name: userDocument.name,
+      email: userDocument.email,
+      password: userDocument.password,
+      walletAddress: userDocument.walletAddress,
+      createdAt: userDocument.createdAt,
+      updatedAt: userDocument.updatedAt
+    })
+
+    return userFound
+  }
+
   async getCollectionLength(): Promise<number> {
     return await UserDocument.estimatedDocumentCount()
   }
