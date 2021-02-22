@@ -15,6 +15,8 @@ export class ListWinnerUseCase {
     const { page: pageRequest, limit: limitRequest } = data
     const { page, limit } = pageAndLimitHandler(pageRequest, limitRequest)
 
+    const winnerCollectionLength = await this.winnerRepository.getCollectionLength()
+
     const winnersList = await this.winnerRepository.listAll(page, limit)
 
     if (!winnersList) throw new Error('Ainda não há ganhadores.')
@@ -27,7 +29,7 @@ export class ListWinnerUseCase {
           name: user?.name,
           date: winner.createdAt,
           transactionId: winner.transactionId,
-          amount: winner.amount,
+          amount: winner.amount
         }
 
         return winnerWithName
@@ -36,9 +38,14 @@ export class ListWinnerUseCase {
 
     const outputResult = OutputResultFactory({
       notification: {
-        success: true,
+        success: true
       },
-      data: winnerPromiseList,
+      pagination: {
+        currentPage: page,
+        limit,
+        totalRecords: winnerCollectionLength
+      },
+      data: winnerPromiseList
     })
 
     return outputResult

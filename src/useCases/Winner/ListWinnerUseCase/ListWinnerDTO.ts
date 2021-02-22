@@ -1,4 +1,4 @@
 export interface IListWinnerRequestDTO {
-  page?: number
-  limit?: number
+  page?: string
+  limit?: string
 }

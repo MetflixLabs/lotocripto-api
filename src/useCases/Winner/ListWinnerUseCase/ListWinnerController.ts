@@ -6,8 +6,8 @@ export class ListWinnerController {
   constructor(private listWinnerUseCase: ListWinnerUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const page = request.body.page
-    const limit = request.body.limit
+    const page = request.query.page?.toString()
+    const limit = request.query.limit?.toString()
 
     try {
       const outputResult = await this.listWinnerUseCase.execute({ page, limit })
@@ -17,8 +17,8 @@ export class ListWinnerController {
       const outputResult = OutputResultFactory({
         notification: {
           success: false,
-          message: error.message || 'Erro inesperado.',
-        },
+          message: error.message || 'Erro inesperado.'
+        }
       })
 
       return response.status(400).json(outputResult)

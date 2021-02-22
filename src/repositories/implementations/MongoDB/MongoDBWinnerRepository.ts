@@ -13,7 +13,12 @@ export class MongoDBWinnerRepository implements IWinnerRepository {
   async listAll(page: number, limit: number): Promise<IWinner[] | null> {
     const skip = (page - 1) * limit
 
-    const winnerDocument = await WinnerDocument.find({}).sort({ createdAt: 'desc' }).lean().exec()
+    const winnerDocument = await WinnerDocument.find({})
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: 'desc' })
+      .lean()
+      .exec()
 
     if (winnerDocument.length === 0) return null
 
