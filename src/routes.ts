@@ -18,6 +18,7 @@ import { findParticipantByUptimeController } from './useCases/Participant/FindPa
 import { createWinnerController } from './useCases/Winner/CreateWinnerUseCase'
 import { listWinnerController } from './useCases/Winner/ListWinnerUseCase'
 import { getParticipantLengthController } from './useCases/Participant/GetParticipantLength'
+import { getAllParticipantSocketsController } from './useCases/Participant/GetAllParticipantSockets'
 import { botAuth } from './middlewares/botAuth'
 
 const router = Router()
@@ -49,6 +50,10 @@ router.delete('/users', jwtAuth, (request, response) =>
 )
 
 // participants
+router.get('/participants/allSockets', botAuth, (request, response) =>
+  getAllParticipantSocketsController.handle(request, response)
+)
+
 router.get('/participants/length', botAuth, (request, response) =>
   getParticipantLengthController.handle(request, response)
 )

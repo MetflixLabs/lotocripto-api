@@ -167,4 +167,14 @@ export class MongoDBParticipantRepository implements IParticipantRepository {
   async getCollectionLength(): Promise<number> {
     return await ParticipantDocument.estimatedDocumentCount()
   }
+
+  async getAllSockets(): Promise<string[] | null> {
+    const participantDocument = await ParticipantDocument.find({})
+
+    if (participantDocument.length === 0) return null
+
+    const socketList = participantDocument.map(participantDocument => participantDocument.socketId)
+
+    return socketList
+  }
 }

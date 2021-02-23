@@ -12,4 +12,5 @@ export interface IParticipantRepository {
   findByUptime(minDate: Date): Promise<IParticipant[] | null>
   deleteAll(): Promise<unknown>
   getCollectionLength(): Promise<number>
+  getAllSockets(): Promise<string[] | null>
 }
