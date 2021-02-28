@@ -13,8 +13,12 @@ export class FindParticipantByUptimeController {
     try {
       const outputResult = await this.findParticipantByUptimeUseCase.execute({ uptime })
 
+      console.log('[Find Participant by Uptime] Participant found! Returning it')
+
       return response.status(200).json(outputResult)
     } catch (error) {
+      console.log(`[Find Participant by Uptime] Participant not found! Error: ${error}`)
+
       const outputResult = OutputResultFactory({
         notification: {
           success: false,
