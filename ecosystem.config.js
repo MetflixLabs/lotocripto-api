@@ -5,6 +5,6 @@ module.exports = {
     args: './src/server.ts',
     watch: '.',
     max_memory_restart: '450M',
-    instances: 3,
+    instances: 2,
   }]
 };
