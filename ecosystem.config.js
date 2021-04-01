@@ -7,7 +7,7 @@ module.exports = {
       watch: '.',
       max_memory_restart: '450M',
       instances: 2,
-      cron_restart: '0 5 * * *'
+      cron_restart: '0 8 * * *'
     }
   ]
 }
